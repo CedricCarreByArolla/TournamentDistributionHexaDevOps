@@ -1,9 +1,7 @@
 using Microsoft.EntityFrameworkCore;
-using TournamentDistributionHexa.Domain;
 using TournamentDistributionHexa.Domain.Games;
 using TournamentDistributionHexa.Domain.Players;
 using TournamentDistributionHexa.Domain.Score;
-using TournamentDistributionHexa.Domain.Tournament;
 using TournamentDistributionHexa.Domain.Tournaments;
 using TournamentDistributionHexa.Infrastructure.Models;
 using TournamentDistributionHexa.Infrastructure.Repositories;
@@ -30,24 +28,24 @@ public class TournamentIntegrationTests
                 List<TournamentMatch> matchs = new List<TournamentMatch>()
             {
                 new TournamentMatch(games[0]){ Scores = new List<MatchScore>(){
-                    new MatchScore(players[0]),
-                    new MatchScore(players[1]),
-                    new MatchScore(players[2])
+                    new MatchScore(players[0],0),
+                    new MatchScore(players[1],0),
+                    new MatchScore(players[2],0)
                 } },
                 new TournamentMatch(games[0]){  Scores = new List<MatchScore>(){
-                    new MatchScore(players[3]),
-                    new MatchScore(players[4]),
-                    new MatchScore(players[5])
+                    new MatchScore(players[3],0),
+                    new MatchScore(players[4],0),
+                    new MatchScore(players[5],0)
                 } },
                 new TournamentMatch(games[0]){  Scores = new List<MatchScore>(){
-                    new MatchScore(players[6]),
-                    new MatchScore(players[7]),
-                    new MatchScore(players[8])
+                    new MatchScore(players[6],0),
+                    new MatchScore(players[7],0),
+                    new MatchScore(players[8],0)
                 } },
                 new TournamentMatch(games[0]){  Scores = new List<MatchScore>(){
-                    new MatchScore(players[9]),
-                    new MatchScore(players[10]),
-                    new MatchScore(players[11])
+                    new MatchScore(players[9],0),
+                    new MatchScore(players[10],0),
+                    new MatchScore(players[11],0)
                 } }
 
         };
@@ -67,12 +65,12 @@ public class TournamentIntegrationTests
         {
             foreach (var player in PlayerHelper.GetPlayers())
             {
-                context.Joueurs.Add(new Joueur() { Id = player.PlayerId, Nom = player.Lastname, Prenom = player.Firstname, Telephone = player.Telephone });
+                context.Joueurs.Add(new Joueur() { Id = player.PlayerId.Id, Nom = player.Lastname, Prenom = player.Firstname, Telephone = player.Telephone });
             }
 
             foreach (var game in GameHelper.GetGames())
             {
-                context.Jeus.Add(new Jeu() { Id = game.GameId, Nom = game.Name });
+                context.Jeus.Add(new Jeu() { Id = game.GameId.ID, Nom = game.Name });
             }
             context.SaveChanges();
         }

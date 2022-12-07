@@ -17,7 +17,7 @@ namespace TournamentDistributionHexa.Domain.Repositories
             _repositoryAdapter = tournamentRepositoryAdapter;
             _configuration = configuration;
         }
-        public List<TournamentMatch> Create(string nom, IList<int> playerIds, IList<int> gameIds)
+        public List<TournamentMatch> Create(string nom, IEnumerable<int> playerIds, IEnumerable<int> gameIds)
         {
             var tournamentMatches = new List<TournamentMatch>();
             List<Player> players = new List<Player>();
@@ -30,7 +30,7 @@ namespace TournamentDistributionHexa.Domain.Repositories
             {
                 games.Add(new Game(new GameId(gameId), String.Empty));
             }
-            foreach (var game in GetEvenlyDistributedGames(games, playerIds.Count))
+            foreach (var game in GetEvenlyDistributedGames(games, playerIds.Count()))
             {
                 foreach (var team in game.Teams)
                 {

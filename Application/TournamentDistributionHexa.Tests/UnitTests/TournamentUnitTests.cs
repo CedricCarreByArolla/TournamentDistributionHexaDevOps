@@ -1,11 +1,9 @@
 using Microsoft.Extensions.Configuration;
 using Moq;
-using TournamentDistributionHexa.Domain;
 using TournamentDistributionHexa.Domain.Games;
 using TournamentDistributionHexa.Domain.Players;
 using TournamentDistributionHexa.Domain.Repositories;
 using TournamentDistributionHexa.Domain.Score;
-using TournamentDistributionHexa.Domain.Tournament;
 using TournamentDistributionHexa.Domain.Tournaments;
 using TournamentDistributionHexa.Tests.Datasets;
 
@@ -18,11 +16,11 @@ namespace TournamentDistributionHexa.Tests.UnitTests
         {
             //Arrange
             ITournamentDomain domain = GetDomain();
-            List<Player> players = PlayerHelper.Get3Players();
+            IEnumerable<Player> players = PlayerHelper.Get3Players();
             List<Game> games = GameHelper.GetGames();
 
             //Act
-            List<TournamentMatch> matchs = domain.Create("2022-2023", players, games);
+            List<TournamentMatch> matchs = domain.Create("2022-2023", players.Select(x=>x.PlayerId.Id), games.Select(x=>x.GameId.ID));
 
             //Assert
             Assert.True(matchs.Select(x => x.Game).Distinct().Count() == 10);
@@ -32,7 +30,7 @@ namespace TournamentDistributionHexa.Tests.UnitTests
         {
             //Arrange
             ITournamentDomain domain = GetDomain();
-            List<Player> players = PlayerHelper.Get3Players();
+            IEnumerable<Player> players = PlayerHelper.Get3Players();
             List<Game> games = GameHelper.GetGames();
             List<TournamentMatch> expectedMatchs = new List<TournamentMatch>()
             {
@@ -48,7 +46,7 @@ namespace TournamentDistributionHexa.Tests.UnitTests
                 new TournamentMatch(games[9]),
             };
             //Act
-            List<TournamentMatch> matchs = domain.Create("2022-2023", players, games);
+            List<TournamentMatch> matchs = domain.Create("2022-2023", players.Select(x => x.PlayerId.Id), games.Select(x => x.GameId.ID));
             //Assert
             Assert.True(expectedMatchs.Select(x => x.Game).Distinct().SequenceEqual(matchs.Select(x => x.Game).Distinct()));
         }
@@ -62,29 +60,29 @@ namespace TournamentDistributionHexa.Tests.UnitTests
             List<TournamentMatch> expectedMatchs = new List<TournamentMatch>()
             {
                 new TournamentMatch(games[0]){ Scores = new List<MatchScore>(){
-                    new MatchScore(players[0]),
-                    new MatchScore(players[1]),
-                    new MatchScore(players[2])
+                    new MatchScore(players[0],0),
+                    new MatchScore(players[1],0),
+                    new MatchScore(players[2],0)
                 } },
                 new TournamentMatch(games[0]){  Scores = new List<MatchScore>(){
-                    new MatchScore(players[3]),
-                    new MatchScore(players[4]),
-                    new MatchScore(players[5])
+                    new MatchScore(players[3],0),
+                    new MatchScore(players[4],0),
+                    new MatchScore(players[5],0)
                 } },
                 new TournamentMatch(games[0]){  Scores = new List<MatchScore>(){
-                    new MatchScore(players[6]),
-                    new MatchScore(players[7]),
-                    new MatchScore(players[8])
+                    new MatchScore(players[6],0),
+                    new MatchScore(players[7],0),
+                    new MatchScore(players[8],0)
                 } },
                 new TournamentMatch(games[0]){  Scores = new List<MatchScore>(){
-                    new MatchScore(players[9]),
-                    new MatchScore(players[10]),
-                    new MatchScore(players[11])
+                    new MatchScore(players[9],0),
+                    new MatchScore(players[10],0),
+                    new MatchScore(players[11],0)
                 } }
 
             };
             //Act
-            List<TournamentMatch> matchs = domain.Create("2022-2023", players, games);
+            List<TournamentMatch> matchs = domain.Create("2022-2023", players.Select(x => x.PlayerId.Id), games.Select(x => x.GameId.ID));
             //Assert
             Assert.Equivalent(expectedMatchs,matchs);
         }
@@ -97,7 +95,7 @@ namespace TournamentDistributionHexa.Tests.UnitTests
             adapter.Setup(x => x.GetAll()).Returns(new List<TournamentMatch>() {
                 new TournamentMatch(GameHelper.Get1Game()) {
                     Scores = new List<MatchScore>(){
-                        new MatchScore(PlayerHelper.Get1Player())
+                        new MatchScore(PlayerHelper.Get1Player(),0)
                     }
                 }
             });
