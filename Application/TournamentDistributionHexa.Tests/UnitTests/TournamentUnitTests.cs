@@ -48,7 +48,7 @@ namespace TournamentDistributionHexa.Tests.UnitTests
             //Act
             List<TournamentMatch> matchs = domain.Create("2022-2023", players.Select(x => x.PlayerId.Id), games.Select(x => x.GameId.ID));
             //Assert
-            Assert.True(expectedMatchs.Select(x => x.Game).Distinct().SequenceEqual(matchs.Select(x => x.Game).Distinct()));
+            Assert.True(expectedMatchs.Select(x => x.Game.GameId.ID).Distinct().SequenceEqual(matchs.Select(x => x.Game.GameId.ID).Distinct()));
         }
         [Fact]
         public void CreateTournoi_With1Game_Should_Return_3DifferentPlayers_Per_Match()
@@ -84,7 +84,7 @@ namespace TournamentDistributionHexa.Tests.UnitTests
             //Act
             List<TournamentMatch> matchs = domain.Create("2022-2023", players.Select(x => x.PlayerId.Id), games.Select(x => x.GameId.ID));
             //Assert
-            Assert.Equivalent(expectedMatchs,matchs);
+            Assert.Equivalent(expectedMatchs.Select(x=>x.Scores.Select(y=>y.Player.PlayerId.Id)),matchs.Select(x => x.Scores.Select(y => y.Player.PlayerId.Id)));
         }
 
         [Fact]
