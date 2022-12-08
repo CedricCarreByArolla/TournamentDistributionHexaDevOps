@@ -36,7 +36,7 @@
     },
     {
       "type": "Microsoft.Resources/deployments",
-      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('TournamentDistributionHexaApplication', subscription().subscriptionId)))]",
+      "name": "[concat(parameters('resourceGroupName'), 'Deployment', uniqueString(concat('hydreomel-tournaments-api', subscription().subscriptionId)))]",
       "resourceGroup": "[parameters('resourceGroupName')]",
       "apiVersion": "2019-10-01",
       "dependsOn": [
@@ -49,7 +49,7 @@
           "contentVersion": "1.0.0.0",
           "resources": [
             {
-              "name": "TournamentDistributionHexaApplicationapi",
+              "name": "TournamentDistributionHexaAPI",
               "type": "Microsoft.ApiManagement/service",
               "location": "[parameters('resourceLocation')]",
               "properties": {
@@ -59,7 +59,7 @@
                 "hostnameConfigurations": [
                   {
                     "type": "Proxy",
-                    "hostName": "tournamentdistributionhexaapplicationapi.azure-api.net",
+                    "hostName": "tournamentdistributionhexaapi.azure-api.net",
                     "encodedCertificate": null,
                     "keyVaultId": null,
                     "certificatePassword": null,
@@ -94,14 +94,14 @@
             },
             {
               "type": "Microsoft.ApiManagement/service/apis",
-              "name": "TournamentDistributionHexaApplicationapi/TournamentDistributionHexaApplication",
+              "name": "TournamentDistributionHexaAPI/hydreomel-tournaments-api",
               "properties": {
-                "displayName": "TournamentDistributionHexaApplication",
+                "displayName": "hydreomel-tournaments-api",
                 "apiRevision": "1",
-                "description": null,
+                "description": "",
                 "subscriptionRequired": true,
                 "serviceUrl": null,
-                "path": "",
+                "path": "api",
                 "protocols": [
                   "https"
                 ],
@@ -117,7 +117,7 @@
               },
               "apiVersion": "2019-12-01",
               "dependsOn": [
-                "TournamentDistributionHexaApplicationapi"
+                "TournamentDistributionHexaAPI"
               ]
             }
           ]

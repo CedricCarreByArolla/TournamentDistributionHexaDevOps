@@ -7,6 +7,9 @@
       "type": "mssql",
       "connectionId": "ConnectionStrings:RepartitionTournoiContext",
       "dynamicId": null
+    },
+    "apis2": {
+      "type": "apis"
     }
   }
 }

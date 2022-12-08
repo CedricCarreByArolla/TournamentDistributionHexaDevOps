@@ -32,7 +32,7 @@ namespace TournamentDistributionHexa.Tests.UnitTests
             ITournamentDomain domain = GetDomain();
             IEnumerable<Player> players = PlayerHelper.Get3Players();
             List<Game> games = GameHelper.GetGames();
-            List<TournamentMatch> expectedMatchs = new List<TournamentMatch>()
+            List<TournamentMatch> expectedMatchs = new()
             {
                 new TournamentMatch(games[0]),
                 new TournamentMatch(games[1]),
@@ -56,8 +56,8 @@ namespace TournamentDistributionHexa.Tests.UnitTests
             //Arrange
             ITournamentDomain domain = GetDomain();
             List<Player> players = PlayerHelper.GetPlayers();
-            List<Game> games = new List<Game>() { GameHelper.Get1Game() };
-            List<TournamentMatch> expectedMatchs = new List<TournamentMatch>()
+            List<Game> games = new () { GameHelper.Get1Game() };
+            List<TournamentMatch> expectedMatchs = new()
             {
                 new TournamentMatch(games[0]){ Scores = new List<MatchScore>(){
                     new MatchScore(players[0],0),
@@ -137,16 +137,16 @@ namespace TournamentDistributionHexa.Tests.UnitTests
                 }
         }
 
-        private ITournamentDomain GetDomain()
+        private static ITournamentDomain GetDomain()
         {
             var adapter = new Mock<ITournamentMatchRepository>();
             return new TournamentDomain(adapter.Object, GetConfiguration());
         }
-        private ITournamentDomain GetDomain(ITournamentMatchRepository adapter)
+        private static ITournamentDomain GetDomain(ITournamentMatchRepository adapter)
         {
             return new TournamentDomain(adapter, GetConfiguration());
         }
-        private IConfiguration GetConfiguration()
+        private static IConfiguration GetConfiguration()
         {
             var configuration = new Mock<IConfiguration>();
             configuration.Setup(x => x["AppSettings:NumberOfPlayersByTeam"]).Returns("3");
