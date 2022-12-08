@@ -26,5 +26,7 @@
     <ProjectReference Include="..\TournamentDistributionHexa.Application\TournamentDistributionHexa.Application.csproj" />
     <ProjectReference Include="..\TournamentDistributionHexa.Infrastructure\TournamentDistributionHexa.Infrastructure.csproj" />
   </ItemGroup>
-
+    <PropertyGroup>
+	    <ErrorOnDuplicatePublishOutputFiles>false</ErrorOnDuplicatePublishOutputFiles>
+    </PropertyGroup>
 </Project>
