@@ -39,7 +39,7 @@ jobs:
       run: |
         cd Application
         dotnet restore
-        dotnet build --configuration Release
+        dotnet build --configuration Release TournamentDistributionHexa.Application
         dotnet publish -c Release -o '${{ env.AZURE_WEBAPP_PACKAGE_PATH }}/build'
 
     - name: Archive Application
