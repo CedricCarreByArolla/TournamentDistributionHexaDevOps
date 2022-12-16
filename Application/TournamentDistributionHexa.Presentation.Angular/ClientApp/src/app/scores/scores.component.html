@@ -1,0 +1,34 @@
+<h1>Index</h1>
+
+<div class="row">
+  <div class="col-lg-7">
+    <h4>Récapitulatif</h4>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>
+            Game
+          </th>
+          <th>
+            Scores
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let game of scoresObservable | keyvalue">
+          <td>
+            {{ game.key }}
+          </td>
+          <td>
+            <ul>
+              <li *ngFor="let score in game.value">
+                {{score.player.lastName}} {{score.player.firstName}}  {{score.player.telephone}} - Points : {{score.points}}
+              </li>
+            </ul>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <ranking [scores]='scores'></ranking>
+</div>

@@ -3,7 +3,6 @@ using Microsoft.AspNetCore.Mvc;
 using System.Net;
 using TournamentDistributionHexa.Application.Commands;
 using TournamentDistributionHexa.Application.Models.Requests;
-using TournamentDistributionHexa.Application.Models.Responses;
 using TournamentDistributionHexa.Application.Queries;
 using TournamentDistributionHexa.Domain.Tournaments;
 
@@ -19,7 +18,6 @@ namespace TournamentDistributionHexa.Application.Controllers
         {
             _mediator = mediator;
         }
-
         [HttpGet]
         [ProducesResponseType(typeof(List<GetTournamentResponse>), (int)HttpStatusCode.OK)]
         public async Task<IActionResult> All()

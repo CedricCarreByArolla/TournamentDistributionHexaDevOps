@@ -1,0 +1,15 @@
+
+<div id="graph"></div>
+
+<script>
+
+  var week_data = getBurndownChartLines();
+  Morris.Line({
+    element: 'graph',
+    data: week_data,
+    xkey: 'period',
+    lineColors: ['blue', 'green'],
+    ykeys: ['expected', 'actual'],
+    labels: ['Attendu', 'Courant']
+  });
+</script>

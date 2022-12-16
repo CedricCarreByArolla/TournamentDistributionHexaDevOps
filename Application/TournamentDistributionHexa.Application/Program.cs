@@ -14,6 +14,7 @@ builder.Services.AddSwaggerGen();
 builder.Services.RegisterInfraServices(builder.Configuration);
 builder.Services.RegisterDomainServices();
 builder.Services.RegisterRequestHandlers();
+builder.Services.AddCors();
 
 var app = builder.Build();
 
@@ -25,7 +26,7 @@ if (app.Environment.IsDevelopment())
 }
 app.UseMiddleware<ExceptionHandlingMiddleware>();
 app.UseHttpsRedirection();
-
+app.UseCors(x=>x.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
 app.UseAuthorization();
 
 app.MapControllers();
